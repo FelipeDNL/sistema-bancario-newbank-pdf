@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Historico.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FelipeD_SistemaBancario</a> &gt; <a href="index.source.html" class="el_package">com.mycompany.entities</a> &gt; <span class="el_source">Historico.java</span></div><h1>Historico.java</h1><pre class="source lang-java linenums">
+package com.mycompany.entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Historico {
+    
+    private Titular titular;
+    private List&lt;Operacao&gt; operacoes;
+
+<span class="fc" id="L12">    public Historico(Titular titular) {</span>
+<span class="fc" id="L13">        this.titular = titular;</span>
+<span class="fc" id="L14">        this.operacoes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L15">    }</span>
+
+    public void adicionarOperacao(Operacao operacao) {
+<span class="fc" id="L18">        operacoes.add(operacao);</span>
+<span class="fc" id="L19">    }</span>
+
+    public List&lt;Operacao&gt; buscarPorOperacao(String operacaoBuscada) {
+<span class="fc" id="L22">        List&lt;Operacao&gt; operacoesEncontradas = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (Operacao operacao : operacoes) {</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            if (operacao.getNomeOperacao().equals(operacaoBuscada)) {</span>
+<span class="fc" id="L25">                operacoesEncontradas.add(operacao);</span>
+            }
+<span class="fc" id="L27">        }</span>
+<span class="fc" id="L28">        return operacoesEncontradas;</span>
+    }
+
+    public List&lt;Operacao&gt; buscarPorValor(double valorBuscado) {
+<span class="fc" id="L32">        List&lt;Operacao&gt; operacoesEncontradas = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        for (Operacao operacao : operacoes) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            if (operacao.getValor() == valorBuscado) {</span>
+<span class="fc" id="L35">                operacoesEncontradas.add(operacao);</span>
+            }
+<span class="fc" id="L37">        }</span>
+<span class="fc" id="L38">        return operacoesEncontradas;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
