@@ -3,6 +3,9 @@ com\mycompany\entities\ContaPoupanca.class
 com\mycompany\entities\ContaCorrente.class
 com\mycompany\entities\ContaSalario.class
 com\mycompany\entities\Operacao.class
+com\mycompany\gui\Tela$1.class
 com\mycompany\entities\Conta.class
+com\mycompany\gui\Tela.class
 com\mycompany\entities\Historico.class
-com\mycompany\sistemabancario\Main.class
+com\mycompany\gui\TelaUsuario$1.class
+com\mycompany\gui\TelaUsuario.class
