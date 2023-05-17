@@ -97,6 +97,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Criar Conta"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bt_criarMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jrb_corrente">
       <Properties>

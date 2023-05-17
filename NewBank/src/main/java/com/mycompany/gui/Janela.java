@@ -3,13 +3,15 @@ package com.mycompany.gui;
 import java.awt.BorderLayout;
 
 public class Janela extends javax.swing.JFrame {
-    static TelaUsuario telaUsuario;
-    static TelaCliente telaCadastro;
+    static Principal telaUsuario;
+    static TelaCorrente telaCorrente;
+    static TelaPoupanca telaPoupanca;
+    static TelaSalario telaSalario;
     static TelaAdmin telaAdmin;
 
     public Janela() {
         initComponents();
-        telaUsuario = new TelaUsuario();
+        telaUsuario = new Principal();
         
         this.setLayout(new BorderLayout());
         this.add(telaUsuario, BorderLayout.CENTER);

@@ -41,6 +41,11 @@ public class TelaAdmin extends javax.swing.JPanel {
         });
 
         bt_criar.setText("Criar Conta");
+        bt_criar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_criarMouseClicked(evt);
+            }
+        });
 
         jrb_corrente.setText("Corrente");
 
@@ -109,11 +114,15 @@ public class TelaAdmin extends javax.swing.JPanel {
 
     private void bt_voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_voltarMouseClicked
         JFrame janela = (JFrame)SwingUtilities.getWindowAncestor(this);
-        Janela.telaUsuario = new TelaUsuario();  
+        Janela.telaUsuario = new Principal();  
         janela.getContentPane().remove(Janela.telaAdmin); //Remove o painel da telaA do frame.
         janela.add(Janela.telaUsuario, BorderLayout.CENTER); //Adiciona o painel da telaB ao frame.
         janela.pack();
     }//GEN-LAST:event_bt_voltarMouseClicked
+
+    private void bt_criarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_criarMouseClicked
+        
+    }//GEN-LAST:event_bt_criarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
