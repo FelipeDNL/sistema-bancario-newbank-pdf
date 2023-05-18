@@ -1,22 +1,43 @@
 
 package com.mycompany.gui;
 
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.Paragraph;
+import com.mycompany.entities.Conta;
 import com.mycompany.entities.ContaCorrente;
+import com.mycompany.entities.Historico;
+import com.mycompany.entities.Operacao;
 import com.mycompany.entities.Titular;
 import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class TelaCorrente extends javax.swing.JPanel {
-    public ContaCorrente contaCorrente;
+    public Conta contaCorrente;
     public Titular titular;
+    public Historico historico;
+    public Operacao operacao;
+    private String destinoArquivo;
     
     public TelaCorrente() {
         initComponents();
         jl_saldo.setText("0.0");
         titular = new Titular("Felipe", "Rua Da Mãe Juana");
         contaCorrente = new ContaCorrente(titular);
+        historico = new Historico(titular);
+        destinoArquivo = "./Historico_Operações.pdf";
     }
 
     @SuppressWarnings("unchecked")
@@ -36,6 +57,7 @@ public class TelaCorrente extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        bt_historico = new javax.swing.JButton();
 
         bt_voltar.setText("Voltar");
         bt_voltar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -72,7 +94,14 @@ public class TelaCorrente extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 3, 36)); // NOI18N
         jLabel2.setText("Conta Corrente");
 
-        jLabel3.setText("Escolha a operação desejada. O limite negativo é de R$-200.");
+        jLabel3.setText("Escolha a operação desejada. O limite negativo é de -R$200.");
+
+        bt_historico.setText("Histórico");
+        bt_historico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_historicoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,12 +118,21 @@ public class TelaCorrente extends javax.swing.JPanel {
                         .addGap(25, 25, 25)
                         .addComponent(bt_voltar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_historico)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jl_saldo)
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel3))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(108, 108, 108)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,14 +146,7 @@ public class TelaCorrente extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tf_sacar)
                                     .addComponent(tf_depositar)
-                                    .addComponent(tf_pagarOnline, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel3)))))
+                                    .addComponent(tf_pagarOnline, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 89, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -146,7 +177,8 @@ public class TelaCorrente extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_voltar)
                     .addComponent(jLabel1)
-                    .addComponent(jl_saldo))
+                    .addComponent(jl_saldo)
+                    .addComponent(bt_historico))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -154,18 +186,19 @@ public class TelaCorrente extends javax.swing.JPanel {
     private void bt_voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_voltarMouseClicked
         JFrame janela = (JFrame)SwingUtilities.getWindowAncestor(this);
         Janela.telaUsuario = new Principal();  
-        janela.getContentPane().remove(Janela.telaCorrente); //Remove o painel da telaA do frame.
-        janela.add(Janela.telaUsuario, BorderLayout.CENTER); //Adiciona o painel da telaB ao frame.
+        janela.getContentPane().remove(Janela.telaCorrente);
+        janela.add(Janela.telaUsuario, BorderLayout.CENTER);
         janela.pack();
     }//GEN-LAST:event_bt_voltarMouseClicked
 
     private void bt_sacarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_sacarMouseClicked
         if(!tf_sacar.getText().equals("")){
             float sacar = Float.parseFloat(tf_sacar.getText());
-            if(contaCorrente.getSaldo() <= sacar){
-                contaCorrente.sacar(sacar);
-                jl_saldo.setText(String.valueOf(contaCorrente.getSaldo()));
-            } else JOptionPane.showMessageDialog(null, "Saldo insuficiente.", "Erro!", JOptionPane.ERROR_MESSAGE);
+            contaCorrente.sacar(sacar);
+            jl_saldo.setText(String.valueOf(contaCorrente.getSaldo()));
+            tf_sacar.setText("");
+            operacao = new Operacao("Operação sacar concluída.", sacar);
+            historico.adicionarOperacao(operacao);
         } else JOptionPane.showMessageDialog(null, "Digite um valor.", "Erro!", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_bt_sacarMouseClicked
 
@@ -175,6 +208,8 @@ public class TelaCorrente extends javax.swing.JPanel {
             contaCorrente.depositar(depositar);
             jl_saldo.setText(String.valueOf(contaCorrente.getSaldo()));
             tf_depositar.setText("");
+            operacao = new Operacao("Operação depositar concluída.", depositar);
+            historico.adicionarOperacao(operacao);
         } else JOptionPane.showMessageDialog(null, "Digite um valor.", "Erro!", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_bt_depositarMouseClicked
 
@@ -184,12 +219,47 @@ public class TelaCorrente extends javax.swing.JPanel {
             contaCorrente.pagarOnline(pagarOnline);
             jl_saldo.setText(String.valueOf(contaCorrente.getSaldo()));
             tf_pagarOnline.setText("");
+            operacao = new Operacao("Operação pagar online concluída.", pagarOnline);
+            historico.adicionarOperacao(operacao);
         } else JOptionPane.showMessageDialog(null, "Digite um valor.", "Erro!", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_bt_pagarOnlineMouseClicked
+
+    private void bt_historicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_historicoMouseClicked
+        PdfWriter writer;
+        try {
+            writer = new PdfWriter(this.destinoArquivo);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document documento = new Document(pdf) {};
+            PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
+
+            documento.add(new Paragraph("Listagem de operações:").setFont(font));
+            
+            List list = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022")
+                .setFont(font);
+            
+            list.add(new ListItem(historico.toString()));
+            
+            documento.add(list);
+            documento.close();
+            
+            JOptionPane.showMessageDialog(bt_depositar, "Histórico criado com sucesso!\nProcure-o na pasta fonte pelo nome Historico_Operações.", "Sucesso!", JOptionPane.DEFAULT_OPTION);
+            
+        } catch (FileNotFoundException ex) {
+            System.out.println("Path para arquivo não pode ser resolvido:");
+            Logger.getLogger(TelaCorrente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            System.out.println("Problemas de leitura/escrita em arquivo:");
+            Logger.getLogger(TelaCorrente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_bt_historicoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_depositar;
+    private javax.swing.JButton bt_historico;
     private javax.swing.JButton bt_pagarOnline;
     private javax.swing.JButton bt_sacar;
     private javax.swing.JButton bt_voltar;

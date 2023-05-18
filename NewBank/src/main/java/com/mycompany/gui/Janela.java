@@ -7,16 +7,16 @@ public class Janela extends javax.swing.JFrame {
     static TelaCorrente telaCorrente;
     static TelaPoupanca telaPoupanca;
     static TelaSalario telaSalario;
-    static TelaAdmin telaAdmin;
+    static TelaCriarConta telaCriarConta;
 
     public Janela() {
         initComponents();
         telaUsuario = new Principal();
-        
+
+        this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
         this.add(telaUsuario, BorderLayout.CENTER);
         this.pack();
-        
     }
     
     @SuppressWarnings("unchecked")
@@ -27,6 +27,7 @@ public class Janela extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NewBank");
+        setLocation(new java.awt.Point(0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,7 +68,6 @@ public class Janela extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Janela().setVisible(true);

@@ -37,4 +37,11 @@ public class Historico {
         }
         return operacoesEncontradas;
     }
+
+    @Override
+    public String toString() {
+        return operacoes.toString();
+    }
+    
+    
 }

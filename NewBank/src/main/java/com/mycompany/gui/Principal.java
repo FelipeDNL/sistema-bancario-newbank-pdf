@@ -29,7 +29,7 @@ public class Principal extends javax.swing.JPanel {
         jrb_salario = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        bt_admin = new javax.swing.JButton();
+        bt_criarConta = new javax.swing.JButton();
 
         buttonGroup1.add(jrb_corrente);
         jrb_corrente.setText("Corrente");
@@ -53,12 +53,12 @@ public class Principal extends javax.swing.JPanel {
         buttonGroup1.add(jrb_salario);
         jrb_salario.setText("Salário");
 
-        jLabel3.setText("Escolha o tipo de conta ou entre como administrador:");
+        jLabel3.setText("Escolha o tipo de conta ou entre crie uma nova conta:");
 
-        bt_admin.setText("Administrador");
-        bt_admin.addMouseListener(new java.awt.event.MouseAdapter() {
+        bt_criarConta.setText("Criar Nova Conta");
+        bt_criarConta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_adminMouseClicked(evt);
+                bt_criarContaMouseClicked(evt);
             }
         });
 
@@ -83,8 +83,8 @@ public class Principal extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                                .addComponent(bt_admin))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                .addComponent(bt_criarConta))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
                                 .addComponent(jrb_corrente)
@@ -109,7 +109,7 @@ public class Principal extends javax.swing.JPanel {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jLabel3))
-                    .addComponent(bt_admin))
+                    .addComponent(bt_criarConta))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrb_corrente)
@@ -142,20 +142,19 @@ public class Principal extends javax.swing.JPanel {
                 } else JOptionPane.showMessageDialog(null, "Escolha uma opção.", "Erro!", JOptionPane.ERROR_MESSAGE);
             }
         }     
-        
     }//GEN-LAST:event_bt_entrarMouseClicked
 
-    private void bt_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_adminMouseClicked
+    private void bt_criarContaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_criarContaMouseClicked
         JFrame janela = (JFrame)SwingUtilities.getWindowAncestor(this);
-        Janela.telaAdmin = new TelaAdmin();  
+        Janela.telaCriarConta = new TelaCriarConta();  
         janela.getContentPane().remove(Janela.telaUsuario);
-        janela.add(Janela.telaAdmin, BorderLayout.CENTER);
+        janela.add(Janela.telaCriarConta, BorderLayout.CENTER);
         janela.pack();
-    }//GEN-LAST:event_bt_adminMouseClicked
+    }//GEN-LAST:event_bt_criarContaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_admin;
+    private javax.swing.JButton bt_criarConta;
     private javax.swing.JButton bt_entrar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;

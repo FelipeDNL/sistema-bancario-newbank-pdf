@@ -2,14 +2,15 @@
 package com.mycompany.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Operacao {
     
     private String nomeOperacao;
-    private double valorOperado;
+    private float valorOperado;
     private LocalDateTime data;
 
-    public Operacao (String nomeOperacao, double valorOperado) {
+    public Operacao (String nomeOperacao, float valorOperado) {
         this.nomeOperacao = nomeOperacao;
         this.valorOperado = valorOperado;
         this.data = LocalDateTime.now();
@@ -27,7 +28,7 @@ public class Operacao {
         return valorOperado;
     }
 
-    public void setValor(double valor) {
+    public void setValor(float valor) {
         this.valorOperado = valor;
     }
 
@@ -39,4 +40,10 @@ public class Operacao {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return nomeOperacao + ", Valor Operado = " + valorOperado + ", Data = " + data.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + "\n";
+    }
+
+    
 }
