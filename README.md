@@ -1,29 +1,54 @@
-Recuperação da Tarefa 1 de Laboratório de Programação
-Desenvolver a lógica por trás de um sistema bancário chamado NewBank, onde os
-seguintes requisitos devem ser resolvidos:
+# Sistema Bancario com extrato em PDF
 
-Deve ser possível criar e utilizar contas bancárias, onde pode ser conta
-salário (opção 1), conta corrente (opção 2) e poupança (opção 3). Todas as
-contas possuem um objeto titular contendo nome e endereço. Toda conta
-possui saldo e as operações de sacar (algum valor), depositar (algum valor) e
-pagar online (algum valor). Desta forma, os setters de saldo não existem
-(setSaldo deve ser removido pela inserção dos métodos de sacar e
-depositar).
+Este projeto é um sistema bancário chamado **NewBank**. Ele é desenvolvido em Java e utiliza a biblioteca Swing para a interface gráfica assim como uma biblioteca para exportar o histórico do usuário em PDF. O projeto está estruturado em diferentes pacotes e classes que representam as funcionalidades e entidades do sistema bancário. A seguir, uma descrição detalhada dos principais componentes do projeto:
 
-Somente a conta corrente permite ficar com saldo negativo em caso de
-operações que ultrapassem o atual saldo. Lembrando que devem possuir
-como propriedade um limite para operações com saldo negativo. Quando
-ultrapassar o limite, deve bloquear a operação pretendida retornando falso
-(fundos insuficientes);
+### Estrutura do Projeto
 
-Conta salário é a única que não permite pagamentos online;
-Poupanças possuem uma taxa de saque de 0,05%;
-Implemente uma classe Operação que possui descrição da operação, valor
-operado, data com hora e a conta utilizada. Depois implemente uma classe
-Historico onde deve conter um objeto titular e uma lista com operações. Na
-classe Histórico deverá possuir um método de busca para retornar por uma
-operação em específico e um outro método com pesquisa por valores (se
-desejar, poderá implementar tudo em um método somente).
+- **src/main/java/com/mycompany/entities**: Contém as classes que representam as entidades do sistema bancário, como contas e titulares.
+  - **Conta**: Classe base para diferentes tipos de contas bancárias.
+  - **ContaCorrente**: Representa uma conta corrente com limite de saque.
+  - **ContaPoupanca**: Representa uma conta poupança com taxa de saque.
+  - **ContaSalario**: Representa uma conta salário.
+  - **Titular**: Representa o titular de uma conta bancária.
+  - **Historico**: Gerencia o histórico de operações realizadas em uma conta.
+  - **Operacao**: Representa uma operação bancária (sacar, depositar, pagar online).
 
-O sistema deverá emitir extrato em PDF das operações, conforme lógica do
-item acima.
+- **src/main/java/com/mycompany/gui**: Contém as classes que implementam a interface gráfica do usuário.
+  - **Janela**: Classe principal que gerencia a janela do aplicativo.
+  - **Principal**: Tela inicial do aplicativo onde o usuário pode escolher o tipo de conta ou criar uma nova conta.
+  - **TelaCorrente**: Tela para operações em uma conta corrente.
+  - **TelaPoupanca**: Tela para operações em uma conta poupança.
+  - **TelaSalario**: Tela para operações em uma conta salário.
+  - **TelaCriarConta**: Tela para criação de novas contas.
+
+### Funcionalidades
+
+- **Criação de Contas**: O usuário pode criar diferentes tipos de contas (corrente, poupança, salário) fornecendo informações como nome e endereço do titular.
+- **Operações Bancárias**: O usuário pode realizar operações como sacar, depositar e pagar online em diferentes tipos de contas.
+- **Histórico de Operações**: O sistema mantém um histórico das operações realizadas em cada conta e permite a geração de um relatório em PDF.
+
+### Exemplo de Uso
+
+1. **Tela Principal**: O usuário inicia na tela principal onde pode escolher entre criar uma nova conta ou acessar uma conta existente.
+2. **Criação de Conta**: Na tela de criação de conta, o usuário escolhe o tipo de conta e fornece as informações do titular.
+3. **Operações Bancárias**: Após criar ou acessar uma conta, o usuário pode realizar operações como sacar, depositar e pagar online.
+4. **Histórico**: O usuário pode visualizar o histórico de operações e gerar um relatório em PDF.
+
+### Tecnologias Utilizadas
+
+- **Java**: Linguagem de programação principal.
+- **Swing**: Biblioteca para criação da interface gráfica.
+- **iText**: Biblioteca para geração de PDFs.
+
+### Estrutura de Pastas
+
+- **nbproject/**: Arquivos de configuração do projeto.
+- **pom.xml**: Arquivo de configuração do Maven.
+- **src/**: Código-fonte do projeto.
+- **target/**: Arquivos compilados e gerados pelo Maven.
+
+Este projeto oferece uma interface gráfica intuitiva para gerenciar contas bancárias e realizar operações financeiras, além de manter um histórico detalhado das transações.
+
+<p align='center'>
+  <img class='center' src='https://github.com/user-attachments/assets/a686cb43-706e-4752-8cad-96bd3a5fbb5e'>
+</p>
