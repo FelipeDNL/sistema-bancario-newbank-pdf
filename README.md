@@ -1,4 +1,4 @@
-# Sistema Bancario com extrato em PDF
+# Sistema bancario com extrato em PDF
 
 Este projeto é um sistema bancário chamado **NewBank**. Ele é desenvolvido em Java e utiliza a biblioteca Swing para a interface gráfica assim como uma biblioteca para exportar o histórico do usuário em PDF. O projeto está estruturado em diferentes pacotes e classes que representam as funcionalidades e entidades do sistema bancário. A seguir, uma descrição detalhada dos principais componentes do projeto:
 
